@@ -1,0 +1,28 @@
+var index = 0;
+            $("ol li").click(function () {
+                $("ol li").attr("class","");
+                $(this).attr("class","active");
+                $("ul li").stop().animate({opacity:1},1000)
+                $("ul li").eq($(this).index()).stop().animate({opacity:0},1000);//$(this).index()
+				index = $(this).index();
+            })
+			var timer = setInterval(auto,1500)
+			$("ul").hover(
+			    function(){
+					clearInterval(timer);
+				},
+				function(){
+					timer = setInterval(auto,1500);
+				}
+			)
+			function auto(){
+				
+				index++;
+				if(index >= $("ol").find("li").length){
+					index = 0;
+				}
+				$("ul").find("li").eq(index).stop().animate({opacity:1},1000)
+				$("ul").find("li").eq(index).siblings().stop().animate({opacity:0},1000)
+				$("ol li").eq(index).siblings().attr("class","");
+                $("ol li").eq(index).attr("class","active");				
+			}
